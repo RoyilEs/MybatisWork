@@ -16,7 +16,7 @@ public class UserTest {
     @Test
     public void test01() {
         User user1 = new User();
-        user1.setUname("张贤德");
+        user1.setUname("XXX");
         user1.setUphone("114514");
         user1.setUage(20);
 
