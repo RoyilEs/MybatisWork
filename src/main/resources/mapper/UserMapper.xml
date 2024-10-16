@@ -1,0 +1,14 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhangxiande.mapper.UserMapper">
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="uid">
+        insert users_info(uname, uage, uphone) VALUES(#{uname},#{uage},#{uphone})
+    </insert>
+    <select id="findById" resultType="com.zhangxiande.pojo.User">
+        select * from users_info where uid = #{uid}
+    </select>
+    <select id="findByName" resultType="com.zhangxiande.pojo.User">
+        select * from users_info where uname = #{uname}
+    </select>
+</mapper>
