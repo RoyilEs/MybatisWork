@@ -5,9 +5,18 @@
     <insert id="insertUser" useGeneratedKeys="true" keyProperty="uid">
         insert users_info(uname, uage, uphone) VALUES(#{uname},#{uage},#{uphone})
     </insert>
+
+    <update id="updateUserByID">
+        update users_info set uname = #{uname} where uid = #{uid};
+    </update>
+    <delete id="deleteUserByID">
+        delete from users_info where uid = #{id};
+    </delete>
+
     <select id="findById" resultType="com.zhangxiande.pojo.User">
         select * from users_info where uid = #{uid}
     </select>
+
     <select id="findByName" resultType="com.zhangxiande.pojo.User">
         select * from users_info where uname = #{uname}
     </select>
