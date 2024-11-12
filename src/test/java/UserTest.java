@@ -4,19 +4,27 @@ import com.zhangxiande.pojo.User;
 import com.zhangxiande.utils.MyBatisUtils;
 import org.apache.ibatis.session.SqlSession;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class UserTest {
+    private SqlSession sqlSession;
+    private UserMapper userMapper;
+
+    @Before
+    public void init() {
+        sqlSession = MyBatisUtils.geSqlSession();
+        userMapper = sqlSession.getMapper(UserMapper.class);
+    }
+
 
     @Test
     public void test01() {
         User user1 = new User();
-        user1.setUname("张贤德");
+        user1.setUname("xxx");
         user1.setUphone("114514");
         user1.setUage(20);
-
-        SqlSession sqlSession = MyBatisUtils.geSqlSession();
-        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
         Boolean flag = userMapper.insertUser(user1);
         if (flag) {
             User user = userMapper.findByName(user1.getUname());
@@ -24,12 +32,12 @@ public class UserTest {
         } else {
             System.out.println("填入失败");
         }
+        sqlSession.commit();
+        sqlSession.close();
     }
 
     @Test
     public void test02() {
-        SqlSession sqlSession = MyBatisUtils.geSqlSession();
-        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
         User byId = userMapper.findById(4);
         System.out.println(byId.toString());
     }
@@ -40,8 +48,6 @@ public class UserTest {
         user.setUid(4);
         user.setUname("hahhahaha");
 
-        SqlSession sqlSession = MyBatisUtils.geSqlSession();
-        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
         Boolean flag = userMapper.updateUserByID(user);
         if (flag) {
             User user1 = userMapper.findByName(user.getUname());
@@ -54,9 +60,13 @@ public class UserTest {
 
     @Test
     public void test04(){
+        userMapper.deleteUserByID(15);
+    }
 
-        SqlSession sqlSession = MyBatisUtils.geSqlSession();
-        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-        userMapper.deleteUserByID(4);
+
+    @After
+    public void destory(){
+        sqlSession.commit();
+        sqlSession.close();
     }
 }
