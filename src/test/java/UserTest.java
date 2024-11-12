@@ -8,6 +8,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 public class UserTest {
     private SqlSession sqlSession;
     private UserMapper userMapper;
@@ -47,7 +49,6 @@ public class UserTest {
         User user = new User();
         user.setUid(4);
         user.setUname("hahhahaha");
-
         Boolean flag = userMapper.updateUserByID(user);
         if (flag) {
             User user1 = userMapper.findByName(user.getUname());
@@ -61,6 +62,15 @@ public class UserTest {
     @Test
     public void test04(){
         userMapper.deleteUserByID(15);
+    }
+
+    @Test
+    public void test06(){
+        User user = new User();
+        user.setUname("张");
+        user.setUage(20);
+        List<User> byId2 = userMapper.findByNameAndAge(user);
+        System.out.println(byId2);
     }
 
 

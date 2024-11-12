@@ -20,4 +20,15 @@
     <select id="findByName" resultType="com.zhangxiande.pojo.User">
         select * from users_info where uname = #{uname}
     </select>
+
+    <select id="findByNameAndAge" resultType="com.zhangxiande.pojo.User">
+        select *
+        from users_info where 1=1s
+        <if test="uname != null and uname != ''">
+            and uname like concat('%',#{uname},"%")
+        </if>
+        <if test="uage != null and uage != ''">
+            and uage &lt; #{uage}
+        </if>
+    </select>
 </mapper>
